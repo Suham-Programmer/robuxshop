@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="chatbot/chatbot.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Litecoin Payment</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#111827;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    background:#1f2937;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.qr{
+    width:220px;
+    height:220px;
+    margin:20px auto;
+    border-radius:10px;
+}
+
+.address{
+    background:#2d3748;
+    padding:12px;
+    border-radius:8px;
+    word-break:break-all;
+    margin:20px 0;
+    font-size:15px;
+}
+
+button{
+    padding:12px 30px;
+    border:none;
+    border-radius:8px;
+    background:#00a651;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#008c44;
+}
+.home-btn{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    background:#3498db;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.home-btn:hover{
+    background:#217dbb;
+}
+body{
+    background:#111827;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:40px 20px;
+}
+  .faq-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+.faq-title{
+    width:300px;
+    margin:0 auto 25px auto;
+    padding:12px 20px;
+    background:#c0c30b;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+  .faq-item {
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .faq-item[open] {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .faq-question {
+    padding: 18px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+    list-style: none; /* Removes default triangle icon in some browsers */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  /* Webkit marker removal */
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  /* Custom arrow indicators */
+  .faq-question::after {
+    content: "+";
+    font-size: 1.4rem;
+    color: #666;
+  }
+  .faq-item[open] .faq-question::after {
+    content: "−";
+  }
+  .faq-answer {
+    padding: 0 18px 18px 18px;
+    line-height: 1.6;
+    color: #555;
+  }
+</style>
+
+<script>
+function copyAddress(){
+    navigator.clipboard.writeText(document.getElementById("wallet").innerText);
+    alert("Wallet address copied! Wait for 24 hours to get it also join our server for giveaways and more");
+}
+</script>
+
+</head>
+<body>
+  <!-- ===========================
+     SUPPORT CHATBOT
+=========================== -->
+
+<!-- Floating Button -->
+
+
+<!-- Chat Window -->
+
+
+
+    <!-- Messages -->
+
+
+<!-- ===========================
+     END CHATBOT
+=========================== -->
+
+<div class="container">
+
+<h1>Litecoin Payment</h1>
+
+<p>Send the required amount to this Litecoin wallet.</p>
+
+<!-- Replace this image with your own QR code -->
+<img src="QR-LTC(main).png" class="qr" alt="Litecoin QR Code">
+
+<div class="address" id="wallet">
+LahEALVAF3g3UE61D5ikfoXMoHRfy6tojX
+</div>
+
+<button onclick="copyAddress()">Copy Wallet Address</button>
+    <button class="home-btn" onclick="window.location.href='robloxmain.html'">
+        🏠 Back to Home Page
+    </button>
+
+<br><br>
+
+<p><strong>After payment:</strong></p>
+
+<p>
+Wait for the Litecoin transaction to receive confirmations on the blockchain.
+Once your payment is verified, your Robux order will be processed.
+</p>
+
+</div>
+<div class="faq-container">
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+
+  <!-- FAQ Item 1 -->
+  <details class="faq-item">
+    <summary class="faq-question">How to Pay via Litecoin(LTC)</summary>
+    <div class="faq-answer">
+      <p>Open your Crypto Wallet and tap send then copy the code given here and paste it and enter the exact amount of your choosen pack(Starter-$0.49,Elite-$0.99,Premium-1.99)</p>
+    </div>
+  </details>
+
+  <!-- FAQ Item 2 -->
+  <details class="faq-item">
+    <summary class="faq-question">How long does it take to recieve?</summary>
+    <div class="faq-answer">
+      <p>Usually it takes less than 24 hours to recieve.</p>
+    </div>
+  </details>
+
+  <!-- FAQ Item 3 -->
+  <details class="faq-item">
+    <summary class="faq-question">Can I change my pack to another after it's placed?</summary>
+    <div class="faq-answer">
+      <p>No packs cannot be changed after placement.</p>
+    </div>
+  </details>
+</div>
+<script type="module" src="chatbot/chatbot.js"></script>
+</body>
+</html>

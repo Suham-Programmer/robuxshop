@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#111827;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    padding:20px;
+}
+
+table{
+    width:95%;
+    margin:auto;
+    border-collapse:collapse;
+    background:white;
+    color:black;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#00a651;
+    color:white;
+}
+
+select{
+    padding:8px;
+}
+
+button{
+    padding:8px 15px;
+    background:#00a651;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button:hover{
+    background:#00813f;
+}
+</style>
+
+</head>
+
+<body>
+    
+<div id="loginScreen" style="
+position:fixed;
+inset:0;
+background:#111827;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;">
+
+<div style="
+background:#1f2937;
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:380px;">
+
+<h2>🔒 Admin Login</h2>
+
+<p>Sign in with the administrator Google account.</p>
+
+<button id="googleLogin"
+style="
+margin-top:20px;
+padding:15px;
+width:100%;
+font-size:17px;
+cursor:pointer;">
+
+Continue with Google
+
+</button>
+
+<p id="errorMsg" style="color:red;margin-top:15px;"></p>
+
+</div>
+
+</div>
+<h1>Admin Dashboard</h1>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Username</th>
+<th>Pack</th>
+<th>Price</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Save</th>
+</tr>
+
+</thead>
+
+<tbody id="ordersTable">
+
+</tbody>
+
+</table>
+<script type="module">
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAQyV8ACphNSYGQWflbTYYJZAJOtfy3DUs",
+  authDomain: "robux-shop-main.firebaseapp.com",
+  projectId: "robux-shop-main",
+  storageBucket: "robux-shop-main.firebasestorage.app",
+  messagingSenderId: "431281623609",
+  appId: "1:431281623609:web:9659ae9ef6daf6bb3c33e8",
+  measurementId: "G-DG8P1VJJC7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const table = document.getElementById("ordersTable");
+document.getElementById("googleLogin").onclick = async function(){
+
+    try{
+
+        const result =
+        await signInWithPopup(auth,provider);
+
+        const user = result.user;
+
+        if(user.email==="suham2012dasking@gmail.com"){
+
+            document.getElementById("loginScreen").style.display="none";
+
+            loadOrders();
+
+        }
+
+        else{
+
+            document.getElementById("errorMsg").innerHTML =
+"Access Denied.";
+
+await signOut(auth);
+
+setTimeout(function(){
+
+    window.location.href="robloxmain.html";
+
+},1500);
+
+        }
+
+    }
+
+    catch(error){
+
+        document.getElementById("errorMsg").innerHTML =
+        error.message;
+
+    }
+
+};
+
+async function loadOrders(){
+
+    table.innerHTML = "";
+
+    const querySnapshot = await getDocs(collection(db,"orders"));
+
+    querySnapshot.forEach((doc)=>{
+
+        const order = doc.data();
+
+        table.innerHTML += `
+        <tr>
+            <td>${order.orderId}</td>
+            <td>${order.username}</td>
+
+            <td>${order.pack}</td>
+
+            <td>${order.price}</td>
+
+            <td>${order.payment}</td>
+
+            <td>
+
+                <select id="${doc.id}">
+
+                    <option ${order.status=="Pending"?"selected":""}>Pending</option>
+
+                    <option ${order.status=="Paid"?"selected":""}>Paid</option>
+
+                    <option ${order.status=="Delivered"?"selected":""}>Delivered</option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <button onclick="saveStatus('${doc.id}')">
+                    Save
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+onAuthStateChanged(auth,(user)=>{
+
+    if(user && user.email==="suham2012dasking@gmail.com"){
+
+        document.getElementById("loginScreen").style.display="none";
+
+        loadOrders();
+
+    }
+
+});
+
+window.saveStatus = async function(id){
+
+    const status = document.getElementById(id).value;
+
+    await updateDoc(doc(db,"orders",id),{
+
+        status: status
+
+    });
+
+    alert("Status Updated!");
+
+}
+</script>
+</body>
+</html>
